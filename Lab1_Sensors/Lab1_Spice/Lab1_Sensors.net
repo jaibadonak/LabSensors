@@ -9,15 +9,17 @@ R1AL 0 N002 14
 V1Bac N004 0 SINE(0 1 500)
 R1BL 0 N004 12.5
 V1Cac N006 0 SINE(0 1 500)
-L1C N006 0 4mH
-C1D N007 0 25.3µ
-I1Dac 0 N007 SINE(0 1 500)
+L1C N007 0 4mH
+C1D N008 0 25.3µ
+I1Dac 0 N008 SINE(0 1 500)
 Vsupply Vac 0 SINE(0 1 500)
 Rload N005 Vis 25
 Lload Vac N005 4mH
 Rs Vis 0 0.1
 Ra Vac Vvs 100k
 Rb Vvs 0 0.1k
+R1 N007 N006 0.2
+R2 N008 0 790
 * Part 1A
 * Part 1B
 * *********************************************************\nELECTENG 209 - Lab 1 (Rev1.1)\nModels required for the Lab 1 provided as a starting point.\nDuleepa J Thrimawithana\n28/05/2021\n*********************************************************
