@@ -10,8 +10,55 @@ Vl = 0.5*14 = 7 V
 Pl = I^2 * R = 0.5^2 * 14 = 3.5W
 
 Q1.2
-| Parameter | #1 | #2 |
+| Parameter | Theoritcal | Sim |
 |----------|------|------|
 | Il | 0.5A | 0.5A |
 | Vl | 7V | 7V |
 | Pl | 3.5W | 3.5W |
+
+Q1.3
+Time Step (assuming 1/20th of the period of 500 Hz): 
+ (1/20)*(1/500)=0.0001s or 100 microseconds
+Stop Time (assuming we’d like to capture 200 cycles):
+0.4s
+
+Q1.4
+Time constant of circuit with 4mH inductor: 
+T = L/R = (4*10^-3)/0.2 = 0.02s
+Time constant of circuit with 25.3µF capacitor: 
+T = RC = (25.3*10^-6)*790=0.019987s ~= 0.02s
+Would simulation reach steady-state: 
+steady state = 5T = 0.1s; stop time is 0.4s so yes will reach steady state;
+
+Q 1.5: Calculate the theoretical load current (IL(RMS)): 
+
+Resistor circuit = I = V/R = 14/12.5 = 1.12A
+Inductor circuit = I = V/Z = 14/(4*10^(-3) * 500*2*pi) = 1.1140846A
+Capacitor circuit = I = V/Z = 14/(1/((500*2*pi)*(25.3*10^(-6)))) = 1.11275212A
+
+load voltage (VL(RMS)):
+
+Resistor circuit = V = 14VRMS
+Inductor circuit = V = 14VRMS
+Capacitor circuit V = 14VRMS
+
+peak instantaneous power (PL(t)):
+
+Resistive P = 2*Vrms*Irms = (14*1.12)*2 = 31.36W
+Inductor P = Vrms*Irms = 14*1.1140846 = 15.5971844W
+Capacitor P = Vrms*Irms = 14*1.11275212 = 15.5785297W
+
+average power delivered by the source (Pin):
+
+Resistive = Vrms*Irms = 
+
+| Parameter | Theoritcal(resistor) | Sim(resistor) | Theoritcal(inductor) | Sim(inductor) | Theoritcal(capacitor) | Sim(capacitor) |
+|----------|------|------|------|------|------|------|
+| IL(RMS) | 1.12A | 1.1131A | 1.1140846A | 1.1251A | 1.11275212A | 1.11275212A |
+| VL(RMS) | 14V | 13.914V | 14V | 13.908V | 14V | 14.105V |
+| PL(t) | 31.36W | 31.158374W | 15.5971844W | 15.015064W | 15.5785297W | 15.207276W |
+
+
+How can we minimise the granularity and improve the accuracy? What would be 
+a drawback of doing so? Simulate the resistive load by setting the timestep to a 
+finer value and state your observations.
