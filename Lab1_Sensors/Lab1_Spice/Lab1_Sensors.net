@@ -6,12 +6,12 @@ L2load V2ac N003 4mH
 V1Adc N001 0 14V
 R1AS N002 N001 14
 R1AL 0 N002 14
-V1Bac N004 0 SINE(0 1 500)
+V1Bac N004 0 SINE(0 19.7989899 500)
 R1BL 0 N004 12.5
-V1Cac N006 0 SINE(0 1 500)
+V1Cac N006 0 SINE(0 19.7989899 500)
 L1C N007 0 4mH
 C1D N008 0 25.3µ
-I1Dac 0 N008 SINE(0 1 500)
+I1Dac 0 N008 SINE(0 1.56977705 500)
 Vsupply Vac 0 SINE(0 1 500)
 Rload N005 Vis 25
 Lload Vac N005 4mH
@@ -29,7 +29,7 @@ R2 N008 0 790
 * Simulation Commands\n- 'Stop Time' set to 0.1s & 'Maximum Time Step' not set\n- Change these settings as needed for the lab
 * Part 1C
 * Notes: \n- Set offset and amplitude of the AC source to produce a 14Vrms \n  sinusoidal voltage
-.tran 0.1
+.tran 0 0.4s 0 0.0001s
 * Notes: \n- Set offset and amplitude of the AC source to produce a 14Vrms \n  sinusoidal voltage\n- For Q1.6 set 'Series Resistance' to 0.2 Ohms (or add external R)
 * Part 1D
 * Notes: \n- Set offset and amplitude of the AC source to produce a 1.11Arms \n  sinusoidal current\n- For Q1.6 set the 'Parallel Resistance' to 790 Ohms (or add external R)
