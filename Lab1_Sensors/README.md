@@ -66,3 +66,10 @@ a drawback of doing so? Simulate the resistive load by setting the timestep to a
 finer value and state your observations.
 
 The accuracy will be improved by lowering the timestep, however this would increase simulation time. I observed that the value got closer to theoretical as the timestep improved.
+
+Q1.7:
+Never reaches steady state, this is because there is no damping and energy never gets lost after the transient.
+
+
+
+
