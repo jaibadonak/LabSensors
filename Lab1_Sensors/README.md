@@ -34,13 +34,13 @@ Q 1.5: Calculate the theoretical load current (IL(RMS)):
 
 Resistor circuit = I = V/R = 14/12.5 = 1.12A
 Inductor circuit = I = V/Z = 14/(4*10^(-3) * 500*2*pi) = 1.1140846A
-Capacitor circuit = I = V/Z = 14/(1/((500*2*pi)*(25.3*10^(-6)))) = 1.11275212A
+Capacitor circuit = I = 1.11A
 
 load voltage (VL(RMS)):
 
 Resistor circuit = V = 14VRMS
 Inductor circuit = V = 14VRMS
-Capacitor circuit V = 14VRMS
+Capacitor circuit V = IZ = 1.11*(1/((500*2*pi)*(25.3*10^(-6)))) = 13.9653745V
 
 peak instantaneous power (PL(t)):
 
@@ -50,15 +50,19 @@ Capacitor P = Vrms*Irms = 14*1.11275212 = 15.5785297W
 
 average power delivered by the source (Pin):
 
-Resistive = Vrms*Irms = 
+Resistive = Vrms*Irms = 14*1.12=-15.68W
+Inductor = 0
+Capcitor = 0
 
 | Parameter | Theoritcal(resistor) | Sim(resistor) | Theoritcal(inductor) | Sim(inductor) | Theoritcal(capacitor) | Sim(capacitor) |
 |----------|------|------|------|------|------|------|
 | IL(RMS) | 1.12A | 1.1131A | 1.1140846A | 1.1251A | 1.11275212A | 1.11275212A |
-| VL(RMS) | 14V | 13.914V | 14V | 13.908V | 14V | 14.105V |
+| VL(RMS) | 14V | 13.914V | 14V | 13.908V | 13.9653745V | 14.105V |
 | PL(t) | 31.36W | 31.158374W | 15.5971844W | 15.015064W | 15.5785297W | 15.207276W |
-
+| (Pin) | -15.68W | -15.48W | 0W | -269.97mW | 0W | -267.27mW |
 
 How can we minimise the granularity and improve the accuracy? What would be 
 a drawback of doing so? Simulate the resistive load by setting the timestep to a 
 finer value and state your observations.
+
+The accuracy will be improved by lowering the timestep, however this would increase simulation time. I observed that the value got closer to theoretical as the timestep improved.
