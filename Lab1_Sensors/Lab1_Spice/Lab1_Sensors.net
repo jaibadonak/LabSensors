@@ -29,7 +29,7 @@ R2 N008 0 790
 * Simulation Commands\n- 'Stop Time' set to 0.1s & 'Maximum Time Step' not set\n- Change these settings as needed for the lab
 * Part 1C
 * Notes: \n- Set offset and amplitude of the AC source to produce a 14Vrms \n  sinusoidal voltage
-.tran 0 0.4s 0 0.0001s
+.tran 0 0.4 0 0.0001
 * Notes: \n- Set offset and amplitude of the AC source to produce a 14Vrms \n  sinusoidal voltage\n- For Q1.6 set 'Series Resistance' to 0.2 Ohms (or add external R)
 * Part 1D
 * Notes: \n- Set offset and amplitude of the AC source to produce a 1.11Arms \n  sinusoidal current\n- For Q1.6 set the 'Parallel Resistance' to 790 Ohms (or add external R)
