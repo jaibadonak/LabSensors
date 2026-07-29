@@ -46,7 +46,7 @@ peak instantaneous power (PL(t)):
 
 Resistive P = 2*Vrms*Irms = (14*1.12)*2 = 31.36W
 Inductor P = Vrms*Irms = 14*1.1140846 = 15.5971844W
-Capacitor P = Vrms*Irms = 14*1.11275212 = 15.5785297W
+Capacitor P = Vrms*Irms = 13.9653745V*1.11275212 = 15.5400001W
 
 average power delivered by the source (Pin):
 
@@ -56,9 +56,9 @@ Capcitor = 0
 
 | Parameter | Theoritcal(resistor) | Sim(resistor) | Theoritcal(inductor) | Sim(inductor) | Theoritcal(capacitor) | Sim(capacitor) |
 |----------|------|------|------|------|------|------|
-| IL(RMS) | 1.12A | 1.1131A | 1.1140846A | 1.1251A | 1.11275212A | 1.11275212A |
+| IL(RMS) | 1.12A | 1.1131A | 1.1140846A | 1.1251A | 1.11275212A | 1.112A |
 | VL(RMS) | 14V | 13.914V | 14V | 13.908V | 13.9653745V | 14.105V |
-| PL(t) | 31.36W | 31.158374W | 15.5971844W | 15.015064W | 15.5785297W | 15.207276W |
+| PL(t) | 31.36W | 31.158374W | 15.5971844W | 15.015064W | 15.5400001W | 15.207276W |
 | (Pin) | -15.68W | -15.48W | 0W | -269.97mW | 0W | -267.27mW |
 
 How can we minimise the granularity and improve the accuracy? What would be 
@@ -70,6 +70,40 @@ The accuracy will be improved by lowering the timestep, however this would incre
 Q1.7:
 Never reaches steady state, this is because there is no damping and energy never gets lost after the transient.
 
+Q2.1:
+Max RMS load voltage:
+15.4Vrms
+Min RMS load voltage:
+12.6Vrms
+Max RMS load current:
+7.5VA/12.6Vrms = 0.595238095A
+Minimum RMS load current:
+2.5VA/15.4Vrms = 0.162337662A
 
+Q2.2:
+Il =  14/Z = 14/sqrt(25^2+(500*2*pi*4*10^-3)^2) = 0.500346767A
+W = I^2*R = 0.500346767^2  * 25= 6.25867218W
+VAR = I^2*Q = 0.500346767^2  *(500*2*pi*4*10^-3) = 3.14595177
+VA = sqrt(S^2 + P^2) = sqrt(3.14595177^2 + 6.25867218^2) = 7.00485474
 
+| Parameter | Theoritcal | Sim |
+|----------|------|------|
+| Il | 0.500346767A | 496.43mA |
+| W | 6.25867218W | 6.1612W |
+| VAR | 3.14595177 | 3.21595904W |
+| VA | 7.00485474W | 6.95002W |
 
+Q2.3:
+Il =  14/Z = 14/sqrt(75^2+(500*2*pi*4*10^-3)^2) = 0.184100378A
+W = I^2*R = 0.184100378^2  * 75 = 2.54197119W
+VAR = I^2*Q = 0.184100378^2  * (500*2*pi*4*10^-3) = 0.425911361VAR
+VA = sqrt(S^2 + P^2) = sqrt(0.425911361^2 + 2.54197119^2) = 2.57740529VA
+
+| Parameter | Theoritcal | Sim |
+|----------|------|------|
+| Il | 0.184100378A | 182.89mA |
+| W |  2.54197119W | 2.5086W |
+| VAR | 0.425911361VAR | 0.512719662 |
+| VA | 2.57740529VA | 2.56046VA |
+
+Q3
