@@ -12,10 +12,10 @@ V1Cac N006 0 SINE(0 19.7989899 500)
 L1C N006 0 4mH
 C1D N007 0 25.3µ
 I1Dac 0 N007 SINE(0 1.56977705 500)
-Vsupply Vac 0 SINE(0 1 500)
-Rload N005 Vis 25
+Vsupply Vac 0 SINE(0 21.7788889 500)
+Rload N005 Vis 93.5
 Lload Vac N005 4mH
-Rs Vis 0 0.1
+Rs Vis 0 0.5
 Ra Vac Vvs 100k
 Rb Vvs 0 0.1k
 * Part 1A

@@ -1,6 +1,6 @@
 LTspice 26.0.1 for Windows
 Circuit: C:\Users\jnie221\OneDrive - The University of Auckland\Desktop\lab\LabSensors\Lab1_Sensors\Lab1_Spice\Lab1_Sensors.net
-Start Time: Wed Jul 29 17:35:12 2026
+Start Time: Wed Jul 29 18:45:53 2026
 solver = Normal
 Maximum thread count: 24
 tnom = 27
@@ -9,7 +9,7 @@ method = trap
 WARNING: Node n007 is floating.
 
 Direct Newton iteration succeeded in finding operating point.
-Total elapsed time: 0.134 seconds.
+Total elapsed time: 0.090 seconds.
 
 Files loaded:
 C:\Users\jnie221\OneDrive - The University of Auckland\Desktop\lab\LabSensors\Lab1_Sensors\Lab1_Spice\Lab1_Sensors.net
