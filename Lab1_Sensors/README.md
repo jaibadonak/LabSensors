@@ -139,3 +139,17 @@ Q3.3:
 | Dissipation |  High | Lower |
 | Size | Bigger | Smaller |
 | Cost | Higher |  Lower |
+
+Rs should be 0.5Ohms;
+Largest value staying within 200mW, therefore maximising SNR.
+
+Q4.1:
+Max voltage peak is like 21.78V
+
+Target is 1Vpk
+
+so ratio is 1 = 21.78*(Rb/(Ra+Rb))
+
+1/21.78 = Rb/(Ra+Rb)
+
+
