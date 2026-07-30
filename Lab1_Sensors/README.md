@@ -232,9 +232,9 @@ $$V_{vs(pk)} = V_{ac(rms)} \sqrt{2} \times \frac{R_b}{R_a + R_b} \qquad P_{vs} =
 
 | Source VA | $V_{ac(rms)}$ | $R_L$ | $I_{L(rms)}$ | $V_{vs(pk)}$ Theo | $V_{vs(pk)}$ Sim | $P_{vs}$ Theo | $P_{vs}$ Sim |
 |---|---|---|---|---|---|---|---|
-| 7.5 VA | 12.6 V | 16.5 Ω | 0.595 A | 0.7998 V | | 1.5163 mW | |
-| 7.5 VA | 15.4 V | 28.5 Ω | 0.487 A | 0.9776 V | | 2.2652 mW | |
-| 2.5 VA | 15.4 V | 93.5 Ω | 0.162 A | 0.9776 V | | 2.2652 mW | |
+| 7.5 VA | 12.6 V | 16.5 Ω | 0.595 A | 0.7998 V | 0.8 | 1.5163 mW | 1.491mW |
+| 7.5 VA | 15.4 V | 28.5 Ω | 0.487 A | 0.9776 V | 0.973 | 2.2652 mW | 2.2286mW |
+| 2.5 VA | 15.4 V | 93.5 Ω | 0.162 A | 0.9776 V | 0.973 | 2.2652 mW | 2.2222mW |
 
 **Comments:** The 2 $V_{pk\text{-}pk}$ target is met at maximum input voltage (1.955 $V_{pk\text{-}pk}$, 2% under target so the ADC input cannot be overdriven). At minimum input the output falls to 1.600 $V_{pk\text{-}pk}$, so the signal conditioning stage must handle a 1.6–2.0 V input swing. $P_{vs}$ peaks at 2.27 mW, which is negligible.
 
