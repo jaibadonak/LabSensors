@@ -214,7 +214,7 @@ $$V_{pk} = 15.4 \sqrt{2} = 21.7789\ \text{V}_{pk} \quad (43.56\ \text{V}_{pk\tex
 
 Target output is 2 $V_{pk\text{-}pk}$, i.e. 1 $V_{pk}$:
 
-$$\frac{R_b}{R_a + R_b} = \frac{1}{21.7789} = 0.045916$$
+$$\frac{R_b}{R_a + R_b} = \frac{1}{21.7789} $$
 
 $$\frac{R_a}{R_b} = 21.7789 - 1 = 20.7789$$
 
