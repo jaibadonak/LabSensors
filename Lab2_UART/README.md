@@ -19,3 +19,8 @@ Keep a digital log of your work using the readme file where appropriate.
 >   - If *N % j* is 0 then *N* is not a prime number so clear *isPrime* and *break* the *for loop*
 >   - If *isPrime* is set at the end of 2nd *for loop* then store *N* in the *i* position of the array and increment *i*
 > - Continue with the 1st *for loop* until N reach 300 
+
+QP.1:
+293 or 0x0125
+QP.2:
+Hmm
