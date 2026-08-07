@@ -57,7 +57,7 @@ UBRR = \frac{f_{osc}}{16 \times BAUD} - 1 = \frac{2,000,000}{16 \times 9600} - 1
 So UBRR0 = 12.
 
 Q2.3:
-The UBRR is a 12-bit value (bits 11:0), but the ATmega328P is an 8-bit AVR — every I/O register is only 8 bits wide. A 12-bit value therefore can't fit in a single register, so it's split into a low byte (UBRR0L, bits 7:0) and a high nibble (UBRR0H, bits 3:0, with bits 7:4 reserved). This is the same pattern the AVR uses for other >8-bit peripheral values like the 16-bit timer counters (TCNT1H/L) and OCR/ICR registers.
+The UBRR is a 12-bit value (bits 11:0), but the ATmega328P is an 8-bit AVR; every I/O register is only 8 bits wide. A 12-bit value therefore can't fit in a single register, so it's split into a low byte (UBRR0L, bits 7:0) and a high nibble (UBRR0H, bits 3:0, with bits 7:4 reserved). This is the same pattern the AVR uses for other >8-bit peripheral values like the 16-bit timer counters (TCNT1H/L) and OCR/ICR registers.
 
 Q2.4:
 **UCSR0A**
@@ -91,10 +91,15 @@ UCSR0B |= (1 << TXEN0);
 iii)
 UCSR0C &= ~(1 << UCPOL0);
 
-Q3:
+Q3.1:
 char: 1 byte
 int: 2 bytes
 int_8t: 1 byte
 uint_8t: 1 byte
 uint_16t: 2 byte
 float: 4 bytes
+
+Q3.2  
+8 bit  
+Q3.3  
+255
