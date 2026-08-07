@@ -33,6 +33,7 @@ ii) A basic error-detection bit. It’s set so the total number of 1s in the dat
 iii)Marks the end of the frame by returning the line to the idle-high state for one (or two) bit periods. This guarantees a known line state before the next start bit’s falling edge, so the receiver can reliably detect the next frame. It also gives the receiver a small buffer of time to finish processing the current byte.
 
 iv)The signalling rate, bits per second. It defines how long each bit lasts (at 9600 baud, one bit = 1/9600 s is 104 µs). Both ends must use the same baud rate so the receiver samples each bit near its midpoint; even a few percent mismatch accumulates across the frame and causes the receiver to sample the wrong bit.
+Q2.1
 
 | Setting Name | Register and Bits | Purpose | Do we need it? | Initialisation/ Runtime |
 |---|---|---|---|---|
@@ -47,3 +48,13 @@ iv)The signalling rate, bits per second. It defines how long each bit lasts (at 
 | Transmitter Enable | UCSR0B TXEN0 (Bit 3) | Enables the USART transmitter and overrides the normal port operation of the TxD pin | Yes | Initialisation |
 | Parity Mode | UCSR0C UPM01:0 (Bits 5:4) | Enables and sets the type of parity generation and check: disabled, even parity, or odd parity | Yes | Initialisation |
 | Parity Error | UCSR0A UPE0 (Bit 2) | A flag indicating that the next frame in the receive buffer had a parity error when received, valid only when parity checking is enabled | No | - |
+
+Q2.2:
+Using the asynchronous normal mode formula from the datasheet (U2X0 = 0):
+
+UBRR = \frac{f_{osc}}{16 \times BAUD} - 1 = \frac{2,000,000}{16 \times 9600} - 1 = 13.02 - 1 \approx 12.02
+
+So UBRR0 = 12.
+
+Q2.3:
+The UBRR is a 12-bit value (bits 11:0), but the ATmega328P is an 8-bit AVR — every I/O register is only 8 bits wide. A 12-bit value therefore can't fit in a single register, so it's split into a low byte (UBRR0L, bits 7:0) and a high nibble (UBRR0H, bits 3:0, with bits 7:4 reserved). This is the same pattern the AVR uses for other >8-bit peripheral values like the 16-bit timer counters (TCNT1H/L) and OCR/ICR registers.
