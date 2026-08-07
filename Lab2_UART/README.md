@@ -58,3 +58,35 @@ So UBRR0 = 12.
 
 Q2.3:
 The UBRR is a 12-bit value (bits 11:0), but the ATmega328P is an 8-bit AVR — every I/O register is only 8 bits wide. A 12-bit value therefore can't fit in a single register, so it's split into a low byte (UBRR0L, bits 7:0) and a high nibble (UBRR0H, bits 3:0, with bits 7:4 reserved). This is the same pattern the AVR uses for other >8-bit peripheral values like the 16-bit timer counters (TCNT1H/L) and OCR/ICR registers.
+
+Q2.4:
+**UCSR0A**
+
+| Bit 7 | Bit 6 | Bit 5 | Bit 4 | Bit 3 | Bit 2 | Bit 1 | Bit 0 |
+|-------|-------|-------|-------|-------|-------|-------|-------|
+| RXC0  | TXC0  | UDRE0 | FE0   | DOR0  | UPE0  | U2X0  | MPCM0 |
+| 0     | 0     | 0     | 0     | 0     | 0     | 0     | 0     |
+
+**UCSR0B**
+
+| Bit 7  | Bit 6  | Bit 5  | Bit 4 | Bit 3 | Bit 2  | Bit 1 | Bit 0 |
+|--------|--------|--------|-------|-------|--------|-------|-------|
+| RXCIE0 | TXCIE0 | UDRIE0 | RXEN0 | TXEN0 | UCSZ02 | RXB80 | TXB80 |
+| 0      | 0      | 0      | 1     | 1     | 0      | 0     | 0     |
+
+**UCSR0C**
+
+| Bit 7   | Bit 6   | Bit 5 | Bit 4 | Bit 3 | Bit 2  | Bit 1  | Bit 0  |
+|---------|---------|-------|-------|-------|--------|--------|--------|
+| UMSEL01 | UMSEL00 | UPM01 | UPM00 | USBS0 | UCSZ01 | UCSZ00 | UCPOL0 |
+| 0       | 0       | 0     | 0     | 0     | 1      | 1      | 0      |
+
+Q2.5:
+i)
+if( UCSR0A & (1 << UDRE0) ) {
+
+ii)
+UCSR0B |= (1 << TXEN0);
+
+iii)
+UCSR0C &= ~(1 << UCPOL0);
