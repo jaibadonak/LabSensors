@@ -102,9 +102,24 @@ float: 4 bytes
 Q3.2  
 8 bit  
 Q3.3  
-255
-Q3.4
-H = 72 E = 69 L = 76 L = 76 O = 79
+255  
+Q3.4  
+H = 72 E = 69 L = 76 L = 76 O = 79  
 Q3.5
-modulo operator. Then we encode an individual digit into its ASCII equivalent by simply adding the decimal number 48. Then we iterate through each digit of the number using a loop, writing each character to the data register.
+modulo operator.  
+Then we encode an individual digit into its ASCII equivalent by simply adding the decimal number 48. Then we iterate through each digit of the number using a loop, writing each character to the data register.
 
+each frame is 10 bits (1 start + 8 data + 1 stop), so:
+
+Time per character = 10 / 9600 = 1.0417 ms (1/960 s exactly)
+
+Q 4.1
+
+Single character: = 1.04 ms
+3-digit number (3 chars): 3 * 1.0417 = 3.125 ms
+
+Q 4.2
+
+Three 3-digit numbers with 2 commas + 2 spaces = 13 chars total: 13 * 1.0417 = 13.54 ms
+Full primes list (N(62) numbers, all 3 digits, ", " between each): total chars = 3N + 2(N−1) = 5N − 2, so time = (5N − 2) * 1.0417 ms
+Entire primes list (62 numbers):=  320.8 ms
