@@ -24,3 +24,13 @@ QP.1:
 293 or 0x0125
 QP.2:
 Hmm
+
+Q1
+i) Signals the beginning of a frame. The line idles high (1), and the start bit pulls it low (0) for one bit period. This falling edge tells the receiver “a frame is coming, start sampling now” and gives it a timing reference to align its clock with the incoming bits (since UART is asynchronous, there’s no shared clock line).
+
+ii) A basic error-detection bit. It’s set so the total number of 1s in the data (plus the parity bit) is either even (even parity) or odd (odd parity), depending on which scheme is agreed. The receiver recomputes parity on the received bits, a mismatch means at least one bit flipped in transit. It only catches odd numbers of bit errors and can’t correct them, but it’s cheap. Can be disabled.
+
+iii)Marks the end of the frame by returning the line to the idle-high state for one (or two) bit periods. This guarantees a known line state before the next start bit’s falling edge, so the receiver can reliably detect the next frame. It also gives the receiver a small buffer of time to finish processing the current byte.
+
+iv)The signalling rate, bits per second. It defines how long each bit lasts (at 9600 baud, one bit = 1/9600 s is 104 µs). Both ends must use the same baud rate so the receiver samples each bit near its midpoint; even a few percent mismatch accumulates across the frame and causes the receiver to sample the wrong bit.
+
