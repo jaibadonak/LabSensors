@@ -103,3 +103,8 @@ Q3.2
 8 bit  
 Q3.3  
 255
+Q3.4
+H = 72 E = 69 L = 76 L = 76 O = 79
+Q3.5
+modulo operator. Then we encode an individual digit into its ASCII equivalent by simply adding the decimal number 48. Then we iterate through each digit of the number using a loop, writing each character to the data register.
+
