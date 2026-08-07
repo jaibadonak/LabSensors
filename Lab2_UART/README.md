@@ -123,3 +123,13 @@ Q 4.2
 Three 3-digit numbers with 2 commas + 2 spaces = 13 chars total: 13 * 1.0417 = 13.54 ms
 Full primes list (N(62) numbers, all 3 digits, ", " between each): total chars = 3N + 2(N−1) = 5N − 2, so time = (5N − 2) * 1.0417 ms
 Entire primes list (62 numbers):=  320.8 ms
+
+Q4.3
+How many of the five control registers could be left at their initial values? Three.
+
+
+Q4.4
+Check bit UDRE0 of register UCSR0A and wait if it is 0 (i.e. the data register is still full / not ready for new data)  
+Load data variable into the UDR0 register.
+Q4.5
+check q4code.c
