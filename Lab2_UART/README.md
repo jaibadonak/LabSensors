@@ -90,3 +90,11 @@ UCSR0B |= (1 << TXEN0);
 
 iii)
 UCSR0C &= ~(1 << UCPOL0);
+
+Q3:
+char: 1 byte
+int: 2 bytes
+int_8t: 1 byte
+uint_8t: 1 byte
+uint_16t: 2 byte
+float: 4 bytes
