@@ -34,3 +34,16 @@ iii)Marks the end of the frame by returning the line to the idle-high state for 
 
 iv)The signalling rate, bits per second. It defines how long each bit lasts (at 9600 baud, one bit = 1/9600 s is 104 µs). Both ends must use the same baud rate so the receiver samples each bit near its midpoint; even a few percent mismatch accumulates across the frame and causes the receiver to sample the wrong bit.
 
+| Setting Name | Register and Bits | Purpose | Do we need it? | Initialisation/ Runtime |
+|---|---|---|---|---|
+| Receive Complete | UCSR0A RXC0 (Bit 7) | A flag indicating when the USART has received a complete packet that is ready to be read | No | - |
+| Tx Data Register Empty | UCSR0A UDRE0 (Bit 5) | A flag indicating that the USART is ready to send another packet and it is safe to load data | Yes | Runtime |
+| Transmit Complete | UCSR0A TXC0 (Bit 6) | A flag indicating that the entire frame in the transmit shift register has been shifted out and there is no new data in the transmit buffer | No | - |
+| Mode Selection | UCSR0C UMSEL01:0 (Bits 7:6) | Selects the operating mode of the USART: asynchronous USART, synchronous USART, or master SPI | Yes | Initialisation |
+| Character Size | UCSR0C UCSZ01:0 (Bits 2:1) and UCSR0B UCSZ02 (Bit 2) | Sets the number of data bits per frame (5, 6, 7, 8, or 9 bits) | Yes | Initialisation |
+| Clock Polarity | UCSR0C UCPOL0 (Bit 0) | Sets the relationship between data output change and data input sample on the XCK clock; only used in synchronous mode | No | - |
+| Baud Rate | UBRR0H (Bits 3:0) and UBRR0L (Bits 7:0) | 12-bit register that sets the USART baud rate by dividing the system clock | Yes | Initialisation |
+| Receiver Enable | UCSR0B RXEN0 (Bit 4) | Enables the USART receiver and overrides the normal port operation of the RxD pin | Yes | Initialisation |
+| Transmitter Enable | UCSR0B TXEN0 (Bit 3) | Enables the USART transmitter and overrides the normal port operation of the TxD pin | Yes | Initialisation |
+| Parity Mode | UCSR0C UPM01:0 (Bits 5:4) | Enables and sets the type of parity generation and check: disabled, even parity, or odd parity | Yes | Initialisation |
+| Parity Error | UCSR0A UPE0 (Bit 2) | A flag indicating that the next frame in the receive buffer had a parity error when received, valid only when parity checking is enabled | No | - |
