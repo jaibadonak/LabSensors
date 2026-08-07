@@ -19,8 +19,17 @@ void usart_transmit(uint8_t data);
 int main(void) {
     usart_init(12);                 // UBRR = 12 for 9600 baud @ 2 MHz
 
+    uint16_t number = 345;
     while (1) {
-        usart_transmit('3');        // ASCII '3' = 0x33 = 51
+        uint8_t hundreds = number / 100;         // 3
+        uint8_t tens     = (number / 10) % 10;   // 4
+        uint8_t ones     = number % 10;          // 5
+
+        usart_transmit(hundreds + '0');     // '0' = 0x30, shifts digit to ASCII
+        usart_transmit(tens     + '0');
+        usart_transmit(ones     + '0');
+        usart_transmit(' ');                // separator so repeats read as "345 345 345 ..."
+
         _delay_ms(500);
     }
 }
