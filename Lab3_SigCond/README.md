@@ -25,7 +25,7 @@ V+ = (2.1 + 10Vs)/11
 Vo = V+*(1/11)
 (2.1 + 10Vs) = Vo
 
-<img width="3024" height="4032" alt="IMG_0925" style="transform: rotate(90deg);" src="https://github.com/user-attachments/assets/dda0658c-07ab-458b-b131-2a3431de6335" />
+<img width="3024" height="4032" alt="IMG_0925"  src="https://github.com/user-attachments/assets/dda0658c-07ab-458b-b131-2a3431de6335" />
 
 
 Q1.5 Simulated:
