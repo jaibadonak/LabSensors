@@ -7,3 +7,5 @@ Keep a digital log of your work using the readme file where appropriate.
 
 Q1.1 Simulated
 <img width="1896" height="402" alt="image" src="https://github.com/user-attachments/assets/636e680f-1dfb-4856-9918-e03b1edda3a7" />
+Q1.2:
+It clips due to the limits(rails) of the opamp being 0-5V, which limits the range of the voltage output to them(or a bit below in real life).
