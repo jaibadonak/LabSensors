@@ -67,7 +67,51 @@ R1b = R2 = 10kOhm (arbitrary choice)
 
 R1a = 10k - 4.489kOhm = 5.511kOhm
 
+## Q3.2 — Simulation Verification
 
+For the voltage divider:
+
+- \(R_a = 100\,k\Omega\)
+- \(R_b = 4.7\,k\Omega\)
+
+\[
+\frac{R_b}{R_a+R_b}=0.04489
+\]
+
+The differential amplifier has approximately unity gain and adds a 2.1 V offset:
+
+\[
+V_{vo}\approx2.1+V_{vs}
+\]
+
+| Source | \(V_{AC(rms)}\) | \(R_L\) | \(I_{L(rms)}\) | \(V_{vo(pk)}\) Theo |
+|---|---:|---:|---:|---:|
+| 7.5 VA | 12.6 V | 17.03 Ω | 0.595 A | 2.90 V |
+| 7.5 VA | 15.4 V | 29.02 Ω | 0.487 A | 3.08 V |
+| 2.5 VA | 15.4 V | 94.03 Ω | 0.162 A | 3.08 V |
+
+**Comment:** No clipping is expected as \(V_{vo}\) remains within the LM324 output range.
+
+## Q3.3 — Offset in \(V_{vs}\)
+
+The 2.1 V reference loads the voltage divider through the differential amplifier resistor network. Since the divider has finite output resistance, a small DC current flows into it, creating a DC offset in \(V_{vs}\).
+
+## Q3.4 — Resistor Selection
+
+Use resistors in the **kΩ range**.
+
+- **Too small (Ω):** High current draw, increased power consumption and excessive loading of the sensor/op-amp.
+- **Too large (MΩ):** Input bias currents and leakage produce larger voltage errors, with increased sensitivity to noise and parasitic capacitance.
+
+## Q3.5 — Replacement Op-Amp Requirements
+
+| Parameter | Requirement |
+|---|---|
+| Supply voltage | Min < 5 V < Max |
+| Input common-mode range | Must include required input range |
+| Output voltage swing | Must cover required \(V_{out}\) range |
+| Output current | Must exceed required load current |
+| Bandwidth | Must comfortably exceed 500 Hz |
 
 \\
 
