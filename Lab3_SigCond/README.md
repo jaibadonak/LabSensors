@@ -58,3 +58,61 @@ As a result, voltages that should cancel can appear at the output, causing gain 
 Q2.4:
 To improve accuracy at light loads, you could use a higher amplifier gain so the small shunt voltage produces a larger output signal. A switchable/variable gain could be used, with high gain for low currents and lower gain for high currents to prevent clipping.
 
+Q3.1:
+Ra || Rb = (100*4.7)/(100+4.7) = 4.489kOhm
+
+R1a + Rth = R1b
+
+R1b = R2 = 10kOhm (arbitrary choice)
+
+R1a = 10k - 4.489kOhm = 5.511kOhm
+
+
+
+\\
+
+Q4.1:  
+Zc = 1/sC  
+Vf/Vop = Zc/(Rf+Zc)  
+= (1/sC)/(Rf+(1/sC))  
+= 1/(RfsC + 1)  
+w = 1/RC
+R = 1/wC
+if C = 10nF
+Rf = 1/(2*pi*10000*10*10^-9) = 1591.549Ohms
+Cf = 10nF
+Rf = 1.6kOhm
+giving around 9.95kHz
+
+Q4.3:
+<img width="1896" height="402" alt="image" src="https://github.com/user-attachments/assets/2afc6c9a-fda3-4fbe-808a-972cc49b99c8" />
+
+Q4.4:
+at closer to 500Hz it starts to attenuate significantly and has a bigger phase shift which reduces accuracy of signal.(you lose like 30% of signal if corner freq is at 500Hz)
+If too close to 100kHz, it becomes less effective at filtering the noise and the signal will therefore be more noisy at the ADC.
+
+Q5.1:
+Assuming 50mA constant, diode and reg charging neglected.
+
+T = 1/f = 1/500 = 2ms
+I = C*(deltaV/deltat)
+deltaV = I*deltat / C = (0.05)*(0.002)/(47*10^-6) = 2.12765957V = 2.13V  
+Simulate deltaV = 1.91V
+
+Q5.2
+<img width="1896" height="402" alt="image" src="https://github.com/user-attachments/assets/8befb940-5653-4229-928c-85ef77588ca9" />
+
+Ireg looks like short bursts because the diode starts conduction near the poistive ac parts.
+
+Q5.3:  
+<img width="1896" height="402" alt="image" src="https://github.com/user-attachments/assets/d5bcba2a-722e-4464-be18-fc25320fd4dc" />
+
+
+Q5.4:
+Advantages:  
+Fewer components, less forward voltage drops
+Disadvantages:
+Larger voltage ripple, larger smoothing cap, less efficient than full wave.
+
+Q5.5:
+Use a resistor divider from 5V to make around 2.1V then use lm324 voltage follower to buffer it, which provides high input impedance and low output impedance preventing loading.
