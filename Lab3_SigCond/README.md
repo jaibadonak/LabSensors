@@ -104,8 +104,8 @@ Q5.2
 
 Ireg looks like short bursts because the diode starts conduction near the poistive ac parts.
 
-Q5.3:  
-<img width="1896" height="402" alt="image" src="https://github.com/user-attachments/assets/d5bcba2a-722e-4464-be18-fc25320fd4dc" />
+Q5.3:  <img width="1896" height="402" alt="image" src="https://github.com/user-attachments/assets/6a29363e-1f90-4377-8247-5563f2be076d" />
+
 
 
 Q5.4:
