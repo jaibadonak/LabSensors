@@ -241,3 +241,33 @@ uint16_t adc_convert_mv(uint16_t value)
     return (uint16_t)(((uint32_t)value * 5000UL + 512UL) / 1024UL);
 }
 ```
+
+## Part 4: Processing dataa
+
+### 4.1 - Conversion to millivolts
+
+Pseudocode:
+
+1. Receive the raw ADC count.
+2. Convert it to a 32-bit value before multiplication.
+3. Multiply by the reference voltage in millivolts.
+4. Divide by 1024, rounding if required.
+5. Return the result in millivolts.
+
+```text
+V_mV ≈ N × 5000 / 1024
+```
+
+Example: N = 512 gives 2500 mV.
+
+For the initial ADC2 test:
+
+```c
+while (1) {
+    measured_mv = adc_convert_mv(adc_read(2));
+    _delay_ms(1);
+}
+```
+
+This has around 1.104 ms between samples, plus software overhead. A 1 ms delay after conversion does not produce an exact 1 ms sampling period.
+
