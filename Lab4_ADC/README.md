@@ -18,3 +18,26 @@ DDRB = 0xFF;
 DDRC = 0x00;
 DDRD = 0x00;
 ```
+
+### P.2 — LED pin
+For 1 Hz flashing with 50% duty cycle:
+
+```c
+#define F_CPU 2000000UL
+#include <avr/io.h>
+#include <util/delay.h>
+
+int main(void)
+{
+    DDRB = 0xFF;
+    DDRC = 0x00;
+    DDRD = 0x00;
+
+    while (1) {
+        PORTB |= _BV(PB5);
+        _delay_ms(500);
+        PORTB &= ~_BV(PB5);
+        _delay_ms(500);
+    }
+}
+```
