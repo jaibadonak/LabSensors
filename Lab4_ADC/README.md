@@ -90,7 +90,7 @@ N ≈ 1024 × V_analog / 5
 
 The result is quantised to an integer and limited to 0–1023.
 
-The lab's example uses 1023 for endpoint scaling; the datasheet uses 1024 for the ADC transfer relationship. At 3.35 V:
+At 3.35 V:
 
 ```
 N ≈ 1024 × 3.35 / 5 = 686.08 ≈ 686
@@ -291,5 +291,22 @@ At 500 Hz, this corresponds to:
 theta = 360° × 500 × 104 × 10^−6 = 18.72°
 ```
 
+
+### 5.2 - Compare compensation methods
+
+First remove the offsets and undo the conditioning gains:
+
+```text
+v(t) = 14.1 × [V_ADC0(t) − 2.5]
+i(t) = 2 × [V_ADC1(t) − 2.5]
+```
+
+Therefore:
+
+```text
+V_rms = 2 × 14.1 / sqrt(2) = 19.94 V
+I_rms = 1 × 2 / sqrt(2) = 1.414 A
+P = V_rms × I_rms × cos(30°) = 24.42 W
+```
 
 
