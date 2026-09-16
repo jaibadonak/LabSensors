@@ -107,3 +107,137 @@ Prescaler = 2,000,000 / 125,000 = 16
 ```
 
 Therefore, ADPS2:ADPS0 = 100.
+
+## Part 2
+
+### 2.1 0- Reference-voltage options
+
+| REFS1:REFS0 | Reference |
+|---|---|
+| 00 | External voltage applied to AREF |
+| 01 | AVCC, with a capacitor at AREF |
+| 10 | Reserved |
+| 11 | Internal nominal 1.1 V reference |
+
+AVCC is appropriate for the 0–5 V signals. The internal 1.1 V reference would cause readings above 1.1 V to saturate.
+
+### 2.2 - Initial register values
+
+Configuration: ADC2, AVCC reference, right-adjusted result, polling, single conversions, prescaler 16.
+
+| Register | Bit 7 | Bit 6 | Bit 5 | Bit 4 | Bit 3 | Bit 2 | Bit 1 | Bit 0 |
+|---|---|---|---|---|---|---|---|---|
+| ADMUX names | REFS1 | REFS0 | ADLAR | Reserved | MUX3 | MUX2 | MUX1 | MUX0 |
+| Values | 0 | 1 | 0 | 0 | 0 | 0 | 1 | 0 |
+| ADCSRA names | ADEN | ADSC | ADATE | ADIF | ADIE | ADPS2 | ADPS1 | ADPS0 |
+| Values | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
+| ADCSRB names | Reserved | ACME | Reserved | Reserved | Reserved | ADTS2 | ADTS1 | ADTS0 |
+| Values | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+```c
+ADMUX  = 0x42;
+ADCSRA = 0x84;
+ADCSRB = 0x00;
+```
+
+These are initial values following reset. ADIF is a flag cleared by writing one, not zero.
+
+### 2.3- adc_init()
+
+Included with the complete ADC module under 3.5 below.
+
+## Part 3: Reading da ADC
+
+### 3.1 - Select ADC1 without changing other settings
+
+```c
+ADMUX = (ADMUX & 0xF0) | 0x01;
+```
+
+This replaces only MUX3:0.
+
+### 3.2 - Start conversion
+
+Set ADSC in ADCSRA.
+
+```c
+ADCSRA |= _BV(ADSC);
+```
+
+### 3.3 - Detect completion
+
+For single-conversion mode:
+
+- ADSC == 0: conversion finished.
+- ADIF == 1: a conversion-complete event occurred.
+
+When polling ADIF, clear any previous completion flag before starting the next conversion.
+
+### 3.4 - Y two data registers?
+
+The result is 10 bits, but each register holds 8 bits.
+
+With ADLAR = 0:
+
+- ADCL contains result bits 7–0.
+- ADCH contains result bits 9–8.
+
+U should read ADCL first, then ADCH, to obtain a consistent result.
+
+### 3.5 - ADC module, including 2.3 and 4.1
+
+adc.h:
+
+```c
+#ifndef ADC_H
+#define ADC_H
+
+#include <stdint.h>
+
+void adc_init(void);
+uint16_t adc_read(uint8_t channel);
+uint16_t adc_convert_mv(uint16_t value);
+
+#endif
+```
+
+adc.c:
+
+```c
+#include <avr/io.h>
+#include "adc.h"
+
+void adc_init(void)
+{
+    // ADC0, ADC1 and ADC2: inputs, with pull-ups disabled.
+    DDRC  &= ~(_BV(PC0) | _BV(PC1) | _BV(PC2));
+    PORTC &= ~(_BV(PC0) | _BV(PC1) | _BV(PC2));
+
+    ADMUX  = _BV(REFS0) | _BV(MUX1);  // AVCC, ADC2
+    ADCSRB = 0;
+    ADCSRA = _BV(ADEN) | _BV(ADPS2);  // Enable, divide by 16
+
+    DIDR0 |= _BV(ADC0D) | _BV(ADC1D) | _BV(ADC2D);
+}
+
+uint16_t adc_read(uint8_t channel)
+{
+    // Caller supplies an available external channel, 0–7.
+    ADMUX = (ADMUX & 0xF0) | (channel & 0x07);
+
+    ADCSRA |= _BV(ADSC);
+    while (ADCSRA & _BV(ADSC)) {
+    }
+
+    uint8_t low  = ADCL;
+    uint8_t high = ADCH;
+
+    return ((uint16_t)high << 8) | low;
+}
+
+uint16_t adc_convert_mv(uint16_t value)
+{
+    // Use a 32-bit intermediate and round to nearest millivolt.
+    return (uint16_t)(((uint32_t)value * 5000UL + 512UL) / 1024UL);
+}
+```
