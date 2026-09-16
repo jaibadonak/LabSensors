@@ -43,6 +43,8 @@ int main(void)
 
 ```
 ### P.3 - Button-to-LED delay
+This is due to the debouncing capacitor, polling and cpu time.
+Around 10us.
 
 
 ## Part 1
