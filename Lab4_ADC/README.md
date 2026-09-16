@@ -41,3 +41,15 @@ int main(void)
     }
 }
 ```
+## Part 1
+
+### 1.1 - Definitions
+
+| Term | Answer |
+|---|---|
+| Channel selection | A multiplexer connects one selected analogue input to the shared ADC. |
+| Sample and hold | Captures the input voltage at a particular instant and holds it steady during conversion. |
+| Successive approximation | Tests the result one bit at a time, from most significant to least significant, using a DAC and comparator. |
+| Reference voltage | The voltage that sets the ADC's conversion scale and upper input range. |
+| Sampling rate | The number of samples acquired per second. |
+| Resolution | The number of distinguishable output levels, or the voltage represented by one count. A 10-bit ADC has 2^10 = 1024 levels. |
