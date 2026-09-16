@@ -53,3 +53,7 @@ int main(void)
 | Reference voltage | The voltage that sets the ADC's conversion scale and upper input range. |
 | Sampling rate | The number of samples acquired per second. |
 | Resolution | The number of distinguishable output levels, or the voltage represented by one count. A 10-bit ADC has 2^10 = 1024 levels. |
+
+### 1.2 - Number of input channels
+
+Eight external channels, ADC0–ADC7, on the ATmega328PB and 32-pin ATmega328P. The 28-pin ATmega328P exposes only six external channels. Internal sources can also be selected.
