@@ -34,9 +34,9 @@ int main(void)
     DDRD = 0x00;
 
     while (1) {
-        PORTB |= _BV(PB5);
+        PORTB |= (1 << PB5);
         _delay_ms(500);
-        PORTB &= ~_BV(PB5);
+        PORTB &= ~(1 << PB5);
         _delay_ms(500);
     }
 }
@@ -161,7 +161,7 @@ This replaces only MUX3:0.
 Set ADSC in ADCSRA.
 
 ```c
-ADCSRA |= _BV(ADSC);
+ADCSRA |= (1 << ADSC);
 ```
 
 ### 3.3 - Detect completion
@@ -210,14 +210,14 @@ adc.c:
 void adc_init(void)
 {
     // ADC0, ADC1 and ADC2: inputs, with pull-ups disabled.
-    DDRC  &= ~(_BV(PC0) | _BV(PC1) | _BV(PC2));
-    PORTC &= ~(_BV(PC0) | _BV(PC1) | _BV(PC2));
+    DDRC  &= ~((1 << PC0) | (1 << PC1) | (1 << PC2));
+    PORTC &= ~((1 << PC0) | (1 << PC1) | (1 << PC2));
 
-    ADMUX  = _BV(REFS0) | _BV(MUX1);  // AVCC, ADC2
+    ADMUX  = (1 << REFS0) | (1 << MUX1);  // AVCC, ADC2
     ADCSRB = 0;
-    ADCSRA = _BV(ADEN) | _BV(ADPS2);  // Enable, divide by 16
+    ADCSRA = (1 << ADEN) | (1 << ADPS2);  // Enable, divide by 16
 
-    DIDR0 |= _BV(ADC0D) | _BV(ADC1D) | _BV(ADC2D);
+    DIDR0 |= (1 << ADC0D) | (1 << ADC1D) | (1 << ADC2D);
 }
 
 uint16_t adc_read(uint8_t channel)
@@ -225,8 +225,8 @@ uint16_t adc_read(uint8_t channel)
     // Caller supplies an available external channel, 0–7.
     ADMUX = (ADMUX & 0xF0) | (channel & 0x07);
 
-    ADCSRA |= _BV(ADSC);
-    while (ADCSRA & _BV(ADSC)) {
+    ADCSRA |= (1 << ADSC);
+    while (ADCSRA & (1 << ADSC)) {
     }
 
     uint8_t low  = ADCL;
