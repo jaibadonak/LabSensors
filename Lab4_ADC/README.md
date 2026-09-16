@@ -6,7 +6,7 @@ Keep a digital log of your work using the readme file where appropriate.
 
 ## Pre-lab: Digital I/O
 
-### P.1 — Purpose of DDRn
+### P.1 bPurpose of DDRn
 
 The Data Direction Register configures each pin of port n:
 
@@ -19,7 +19,7 @@ DDRC = 0x00;
 DDRD = 0x00;
 ```
 
-### P.2 — LED pin
+### P.2 LED pin
 For 1 Hz flashing with 50% duty cycle:
 
 ```c
@@ -40,7 +40,11 @@ int main(void)
         _delay_ms(500);
     }
 }
+
 ```
+### P.3 - Button-to-LED delay
+
+
 ## Part 1
 
 ### 1.1 - Definitions
