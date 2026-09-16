@@ -276,4 +276,20 @@ while (1) {
 ```
 
 This has around 1.104 ms between samples, plus software overhead. A 1 ms delay after conversion does not produce an exact 1 ms sampling period.
+###Part 5
+## 5.1 - Delay between consecutive ADC0 and ADC1 samples
+
+Ignoring software overhead:
+
+```text
+Delta t = 13 / 125000 = 104 us
+```
+
+At 500 Hz, this corresponds to:
+
+```text
+theta = 360° × 500 × 104 × 10^−6 = 18.72°
+```
+
+
 
