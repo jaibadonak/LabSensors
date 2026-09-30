@@ -2,7 +2,7 @@
 #include <avr/io.h>
 
 /*
- * Q2.2
+ * Stage 3 - Q2.2
  *
  * Since PB0/PB1 are now reserved for Ds1/Ds2, the shift-register control
  * lines are assigned here to spare pins and should be changed if the
@@ -14,10 +14,10 @@
  *   PD2 = SH_ST
  *
  * Digit cathodes:
- *   PB0 = Ds1
- *   PB1 = Ds2
- *   PB2 = Ds3
- *   PB3 = Ds4
+ *   PB4 = Ds1
+ *   PB5 = Ds2
+ *   PB6 = Ds3
+ *   PB7 = Ds4
  *
  * Digit enable is active-low.
  */
@@ -26,10 +26,10 @@
 #define SH_CP_PIN PD1
 #define SH_ST_PIN PD2
 
-#define DS1_PIN PB0
-#define DS2_PIN PB1
-#define DS3_PIN PB2
-#define DS4_PIN PB3
+#define DS1_PIN PB4
+#define DS2_PIN PB5
+#define DS3_PIN PB6
+#define DS4_PIN PB7
 
 static void pulse_pin(volatile uint8_t *port, uint8_t pin)
 {
