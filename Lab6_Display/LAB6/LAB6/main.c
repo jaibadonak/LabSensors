@@ -1,126 +1,101 @@
 #define F_CPU 2000000UL
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 #include <stdint.h>
 
 /*
- * Stage 1 - Pre-Lab
- *
- * Common-cathode two-digit display.
+ *  Part 1: Multiplexing
  *
  * Segment mapping:
- *   PC0 = Sa
- *   PC1 = Sb
- *   PC2 = Sc
- *   PC3 = Sd
- *   PC4 = Se
- *   PC5 = Sf
- *   PB4 = Sg
+ *   PC0..PC5 = a..f
+ *   PB4 = g
  *   PB5 = LED
  *
  * Digit enables:
- *   PB0 = Ds1, PB1 = Ds2
+ *   PB0 = Ds1
+ *   PB1 = Ds2
  *   0 = enabled, 1 = disabled
  *
- * Push button:
- *   PB7, active-low with internal pull-up
  */
 
 #define DS1_PIN PB0
 #define DS2_PIN PB1
-#define BUTTON_PIN PB7
-
-#define SEG_A PC0
-#define SEG_B PC1
-#define SEG_C PC2
-#define SEG_D PC3
-#define SEG_E PC4
-#define SEG_F PC5
-#define SEG_G PB4
+#define SEG_G_PIN PB4
 #define LED_PIN PB5
 
 static const uint8_t seg_pattern[10] = {
-    0x3F, // 0
-    0x06, // 1
-    0x5B, // 2
-    0x4F, // 3
-    0x66, // 4
-    0x6D, // 5
-    0x7D, // 6
-    0x07, // 7
-    0x7F, // 8
-    0x6F  // 9
+    0x3F, 0x06, 0x5B, 0x4F, 0x66,
+    0x6D, 0x7D, 0x07, 0x7F, 0x6F
 };
+
+volatile uint8_t counter = 0;
+static volatile uint8_t next_digit = 0;
 
 static void output_digit(uint8_t pattern)
 {
-    // a..f are on PC0..PC5.
     PORTC = (PORTC & 0xC0) | (pattern & 0x3F);
 
-    // g is bit 6 of the segment pattern, but physically on PB4.
     if (pattern & 0x40)
-        PORTB |= (1 << SEG_G);
+        PORTB |= (1 << SEG_G_PIN);
     else
-        PORTB &= ~(1 << SEG_G);
+        PORTB &= ~(1 << SEG_G_PIN);
 }
 
-static void init_io(void)
+static void init_display(void)
 {
-    // PC0..PC5 as outputs for segments a..f.
     DDRC |= 0x3F;
-
-    // PB0/PB1 = digit enables, PB4 = segment g, PB5 = LED.
     DDRB |= (1 << DS1_PIN) | (1 << DS2_PIN) |
-            (1 << SEG_G) | (1 << LED_PIN);
+            (1 << SEG_G_PIN) | (1 << LED_PIN);
 
-    // PB7 as input with pull-up.
-    DDRB &= ~(1 << BUTTON_PIN);
-    PORTB |= (1 << BUTTON_PIN);
-
-    // Disable Ds1, enable Ds2.
-    PORTB |= (1 << DS1_PIN);
-    PORTB &= ~(1 << DS2_PIN);
-
-    output_digit(seg_pattern[0]);
+    PORTB |= (1 << DS1_PIN) | (1 << DS2_PIN);
+    output_digit(0x00);
 }
 
-static uint8_t button_pressed(void)
+static void init_timer0_10ms(void)
 {
-    return !(PINB & (1 << BUTTON_PIN));
+    TCCR0A = (1 << WGM01);
+    OCR0A = 77;
+    TCCR0B = (1 << CS02);
+    TIMSK0 = (1 << OCIE0A);
+}
+
+ISR(TIMER0_COMPA_vect)
+{
+    uint8_t digit_value;
+
+    // Blank both digits before changing segment data.
+    PORTB |= (1 << DS1_PIN) | (1 << DS2_PIN);
+
+    if (next_digit == 0)
+    {
+        digit_value = counter / 10;
+        output_digit(seg_pattern[digit_value]);
+        PORTB &= ~(1 << DS1_PIN);
+        next_digit = 1;
+    }
+    else
+    {
+        digit_value = counter % 10;
+        output_digit(seg_pattern[digit_value]);
+        PORTB &= ~(1 << DS2_PIN);
+        next_digit = 0;
+    }
 }
 
 int main(void)
 {
-    init_io();
-
-    uint8_t count = 0;
+    init_display();
+    init_timer0_10ms();
+    sei();
 
     while (1)
     {
-        output_digit(seg_pattern[count]);
+        _delay_ms(1000);
 
-        for (uint8_t i = 0; i < 10; i++)
-        {
-            _delay_ms(100);
-
-            if (button_pressed())
-            {
-                count = 0;
-                output_digit(seg_pattern[0]);
-
-                while (button_pressed())
-                    _delay_ms(10);
-
-                break;
-            }
-
-            if (i == 9)
-            {
-                count++;
-                if (count > 9)
-                    count = 0;
-            }
-        }
+        counter++;
+        if (counter > 99)
+            counter = 0;
     }
 }
